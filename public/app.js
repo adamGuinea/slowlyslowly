@@ -3,11 +3,12 @@ $(document).ready(function(){
   $.getJSON("/api/todos")
   .then(addTodos)
   
-  $('#todoInput').keypress(function(event){
-    if(event.which == 13) {
-      createTodo();
+  $('#todoInput').keypress(function(event) {
+    var todoText = $('#todoInput').val().trim();
+    if(event.which == 13 && todoText) {
+        createTodo(todoText);
     }
-  });
+});
   
   $('.list').on('click', 'li', function(){
     updateTodo($(this));
