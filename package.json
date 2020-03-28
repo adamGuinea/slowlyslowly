@@ -10,9 +10,10 @@
   "author": "adam guinea",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^5.3.4",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "pg": "^7.18.2"
   }
 }
