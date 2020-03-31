@@ -8,7 +8,7 @@ export type Todo = {
 
 export const ListTodo = () => {
   const [todos, setTodos] = useState<Todo[] | null>();
-  const [selected, setSelected] = useState(null);
+  const [todo, setTodo] = useState<Todo>();
   const [modal, setModal] = useState(false);
 
   async function getTodos() {
@@ -36,12 +36,6 @@ export const ListTodo = () => {
     setModal(false);
   }
 
-  function editTodo(todo: Todo) {
-    //@ts-ignore
-    setSelected(todo);
-    setModal(true);
-  }
-
   useEffect(() => {
     getTodos();
   }, []);
@@ -52,11 +46,15 @@ export const ListTodo = () => {
         todos.map(todo => (
           <div key={todo.todo_id}>
             <h3>{todo.description}</h3>
-            <button onClick={() => editTodo(todo)}>Edit</button>
+            <button onClick={() => [setTodo(todo!), setModal(true)]}>
+              Edit
+            </button>
             <button onClick={() => deleteTodo(todo.todo_id)}>Delete</button>
           </div>
         ))}
-      {modal && <EditTodo todo={selected} closeViewModal={closeViewModal} />}
+      {todo && modal && (
+        <EditTodo todo={todo} closeViewModal={closeViewModal} />
+      )}
     </Fragment>
   );
 };

@@ -19,24 +19,24 @@ const customStyles = {
 
 type Props = {
   closeViewModal: () => void;
-  todo: Todo | null;
+  todo: Todo;
 };
 
 export const EditTodo = ({ closeViewModal, todo }: Props) => {
   const [description, setDescription] = useState("");
 
-  async function updateDescription(e: any) {
+  async function updateDescription(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
     e.preventDefault();
-
     try {
       const body = { description };
-      console.log(body);
-      console.log(description);
-      await fetch(`http://localhost:5000/todos/${todo && todo.todo_id}`, {
+      await fetch(`http://localhost:5000/todos/${todo.todo_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
+      closeViewModal();
     } catch (err) {
       console.error(err.message);
     }
@@ -54,7 +54,7 @@ export const EditTodo = ({ closeViewModal, todo }: Props) => {
       </button>
       <input
         type="text"
-        value={description}
+        defaultValue={todo.description}
         onChange={e => setDescription(e.target.value)}
       />
       <button onClick={e => updateDescription(e)}>Confirm</button>
