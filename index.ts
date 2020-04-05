@@ -1,6 +1,6 @@
-const express = require("express");
-const cors = require("cors");
-const { postTodo, getTodos, getTodo, updateTodo, deleteTodo } = require('./handlers')
+import * as express from "express";
+import * as cors from "cors"
+import { postTodo, getTodos, getTodo, updateTodo, deleteTodo } from './handlers';
 const app = express();
 
 app.use(cors());

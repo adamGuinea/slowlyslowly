@@ -1,6 +1,7 @@
-const pool = require("./db");
+import { pool } from "./db";
+import { Request, Response } from "Express";
 
-module.exports.postTodo = async (req, res) => {
+export const postTodo = async (req: Request, res: Response) => {
   try {
     const { description } = req.body;
     const newTodo = await pool.query(
@@ -13,7 +14,7 @@ module.exports.postTodo = async (req, res) => {
   }
 };
 
-module.exports.getTodos = async (_req, res) => {
+export const getTodos = async (_req: Request, res: Response) => {
   try {
     const allTodos = await pool.query("SELECT * FROM todo");
     res.json(allTodos.rows);
@@ -22,7 +23,7 @@ module.exports.getTodos = async (_req, res) => {
   }
 };
 
-module.exports.getTodo = async (req, res) => {
+export const getTodo = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [
@@ -34,7 +35,7 @@ module.exports.getTodo = async (req, res) => {
   }
 };
 
-module.exports.updateTodo = async (req, res) => {
+export const updateTodo = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { description } = req.body;
@@ -48,7 +49,7 @@ module.exports.updateTodo = async (req, res) => {
   }
 };
 
-module.exports.deleteTodo = async (req, res) => {
+export const deleteTodo = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
